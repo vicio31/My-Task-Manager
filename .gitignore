@@ -1,0 +1,15 @@
+# File dell'ambiente virtuale Python (la mia sandbox)
+venv\
+.env
+
+# File di configurazione ambientale (dove metterò la password)
+.env
+
+# File di database SQLite (se mai ne userò uno)
+*.db
+*.sqlite3
+
+# File temporanei del sistema
+__pycache__/
+*.pyc 
+
