@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            {% block title %} 
+            My Task Manager 
+            {% endblock %}</title>
+    </head>
+        <body>
+            <nav>
+                {% block navbar %}
+                <!--Questa è la navbar di defoult-->
+                Questa è la navbar di defoult
+                {% endblock %}
+            </nav>
+
+            <main>
+                {% block content %}
+                    <!--Questo è il contenuto della pagina-->
+                    Questo è il contenuto della pagina 
+                {% endblock %}
+            </main>
+
+            <footer>
+                {% block footer %}
+                <!--Questo è il footer-->
+                Questo è il footer
+                {% endblock %}
+            </footer>
+        </body>
+</html>

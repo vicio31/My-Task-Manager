@@ -1,5 +1,5 @@
 # Importa la classe Flask dalla libreria flask
-from flask import Flask
+from flask import Flask, render_template
 from dotenv import load_dotenv #importa la funzione per caricare .env
 import os
 import mysql.connector
@@ -24,21 +24,29 @@ def get_db_connector():
     return conn
 
 
+@app.route('/test-db')
+def debugging_database():
+    #Fase di debuggin: CONNESSIONE AL DATABASE RIUSCITA CORRETTAMENTE
+    try:
+        # Provo a stabilire una connessione
+        conn = get_db_connector()
+        # se arriva qui, la connessione è ok
+        conn.close() # per chiudere la connessione
+        return 'Connessione al database riuscita!'
+    except mysql.connector.Error as err:
+        # se qualcosa va storto, cattura l'errore e mostralo
+        return f"Errore di connessione: {err}"
+
+
+
 # Definisce cosa succede quando un utente visita la homepage ("/")
 @app.route('/')
 def hello():
-    return 'HELLO WORD, this is my tasks manager'
+    return render_template('index.html')
 
-    # Fase di debuggin: CONNESSIONE AL DATABASE RIUSCITA CORRETTAMENTE
-    # try:
-    #     # Provo a stabilire una connessione
-    #     conn = get_db_connector()
-    #     # se arriva qui, la connessione è ok
-    #     conn.close() # per chiudere la connessione
-    #     return 'Connessione al database riuscita!'
-    # except mysql.connector.Error as err:
-    #     # se qualcosa va storto, cattura l'errore e mostralo
-    #     return f"Errore di connessione: {err}"
+
+# Disabilità la cache dei template in sviluppo
+app.config["TEMPLATES_AUTO_RELOAD"] = True
 
 # Questo blocco fa sì che l'app si avvii solo se eseguiamo direttamente questo script.
 if __name__ == '__main__':
